@@ -6,7 +6,7 @@
     <groupId>org.asciidoctor</groupId>
     <artifactId>exportdoclet</artifactId>
     <packaging>jar</packaging>
-    <version>1.5.4-SNAPSHOT</version>
+    <version>1.5.4-oc.1</version>
 
     <name>Export Doclet</name>
 
