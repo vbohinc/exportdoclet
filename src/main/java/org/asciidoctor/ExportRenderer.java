@@ -142,7 +142,10 @@ public class ExportRenderer {
     private String cleanJavadocInput(String input) {
         return input.trim()
                 .replaceAll("\n ", "\n") // Newline space to accommodate javadoc newlines.
-                .replaceAll("(?m)^( *)\\*\\\\/$", "$1*/"); // Multi-line comment end tag is translated into */.
+                .replaceAll("(?m)^( *)\\*\\\\/$", "$1*/") // Multi-line comment end tag is translated into */.
+                .replaceAll("\\{@link #?(.*?)\\}", "`$1`") // {@link foo.bar} is translated into `foo.bar`
+                .replaceAll("@since ", "TIP: Since ") // @since Foo is translated into TIP: Since Foo
+        ;
     }
 
     /**
