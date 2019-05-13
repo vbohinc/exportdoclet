@@ -15,7 +15,6 @@
  */
 package org.asciidoctor;
 
-import com.sun.javadoc.*;
 import jdk.javadoc.doclet.*;
 
 import javax.lang.model.element.*;
@@ -40,9 +39,11 @@ public class ExportRenderer {
      * From this root all other program structure information can be extracted.
      */
     private final DocletEnvironment rootDoc;
+    private final DocletOptions docletOptions;
 
-    public ExportRenderer(DocletEnvironment rootDoc){
+    public ExportRenderer(DocletEnvironment rootDoc, DocletOptions docletOptions){
         this.rootDoc = rootDoc;
+        this.docletOptions = docletOptions;
     }
 
     /**
@@ -170,13 +171,9 @@ public class ExportRenderer {
      * @return the output directory to export the javadocs
      */
     private String getOutputDir() {
-        /*TODO: for (String[] option : rootDoc.options()) {
-            if(option.length == 2 && option[0].equals("-d")) {
-                return includeTrailingDirSeparator(option[1]);
-            }
-        }*/
-
-        return "";
+        return docletOptions.destDir().isPresent()
+            ? includeTrailingDirSeparator(docletOptions.destDir().get().getPath())
+            : "";
     }
 
     /**

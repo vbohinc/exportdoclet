@@ -32,6 +32,7 @@ public class ExportDoclet implements Doclet {
 
     @Override
     public void init(Locale locale, Reporter reporter) {
+        standardDoclet.init(locale, reporter);
     }
 
     @Override
@@ -41,7 +42,7 @@ public class ExportDoclet implements Doclet {
 
     @Override
     public Set<? extends Option> getSupportedOptions() {
-        return new StandardDoclet().getSupportedOptions();
+        return docletOptions.getSupportedOptions();
     }
 
     @Override
@@ -51,6 +52,10 @@ public class ExportDoclet implements Doclet {
 
     @Override
     public boolean run(DocletEnvironment environment) {
-        return new ExportRenderer(environment).render();
+        return new ExportRenderer(environment, docletOptions).render();
     }
+
+
+    private final StandardDoclet standardDoclet = new StandardDoclet();
+    private final DocletOptions docletOptions = new DocletOptions(standardDoclet);
 }
